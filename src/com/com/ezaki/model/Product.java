@@ -1,13 +1,17 @@
-package com.zup.jaxrs.model;
+package com.ezaki.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Objects;
 
-@XmlRootElement(name = "product")
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "product")
 public class Product {
 	private String name;
 	private String description;
 	private double price;
-	private int id;
+	@Id
+	private Long id;
 	private String category;
 
 	public String getName() {
@@ -18,7 +22,6 @@ public class Product {
 		this.name = name;
 	}
 
-	
 	public String getDescription() {
 		return description;
 	}
@@ -43,11 +46,11 @@ public class Product {
 		this.category = category;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -55,5 +58,11 @@ public class Product {
 	public String toString() {
 		return id + "::" + name + "::" + description;
 	}
+	
+	@Override
+	  public int hashCode() {
+	    return Objects.hash(this.id, this.name, this.description);
+	  }
+
 
 }
